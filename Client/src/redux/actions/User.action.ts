@@ -52,44 +52,39 @@ export const updateUser = (userId: string, pseudo: string, bio: string,
 }
 
 
-export const deleteUser = (userId, pseudo, email, password) => {
-    return (dispatch) => {
+export const deleteUser = (userId: string, pseudo: string, email: string,
+     password: string, dispatch: any) => {   
         return axios({
             method:"delete",
             url: `${process.env.REACT_APP_API_URL}api/user/${userId}`,
             data: {pseudo, email, password},
         })
-        .then((res) => {
+        .then(() => {
             dispatch({ type: DELETE_USER, payload: { userId }})
         })
         .catch((err) => console.log(err))
-    }
 }
 
-export const followUser = (followerId, idToFollow) => {
-    return(dispatch) => {
+export const followUser = (followerId: string, idToFollow: string, dispatch: any) => {   
         return axios({
             method:"patch",
             url: `${process.env.REACT_APP_API_URL}api/user/follow/` + followerId,
             data: { idToFollow },
         })
-            .then((res) => {
+            .then(() => {
                 dispatch({ type: FOLLOW_USER, payload:{idToFollow}})
             })
             .catch((err) => console.log(err))
-    }
 }
 
-export const unfollowUser = (followerId, idToUnfollow) => {
-    return(dispatch) => {
+export const unfollowUser = (followerId: string, idToUnfollow: string, dispatch: any) => {   
         return axios({
             method:"patch",
             url: `${process.env.REACT_APP_API_URL}api/user/unfollow/` + followerId,
             data: { idToUnfollow },
         })
-            .then((res) => {
+            .then(() => {
                 dispatch({ type: UNFOLLOW_USER, payload:{idToUnfollow}})
             })
             .catch((err) => console.log(err))
-    }
 }
