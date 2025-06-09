@@ -3,7 +3,7 @@ import {useSelector} from "react-redux"
 import {Link} from "react-router-dom"
 import { UidContext} from "./AppContext"
 import { Squash as Hamburger } from 'hamburger-react'
-import Logout from './Logout'
+import { Logout } from './Logout'
 import * as ReactModal from "react-modal"
 import { ConnexionModal } from './ConnexionModal'
 import { InscriptionModal } from './InscriptionModal'
