@@ -5,8 +5,8 @@ import { UidContext} from "./AppContext"
 import { Squash as Hamburger } from 'hamburger-react'
 import Logout from './Logout'
 import * as ReactModal from "react-modal"
-import Connexion from "./Connexion"
-import Inscription from "./Inscription"
+import { ConnexionModal } from './ConnexionModal'
+import { InscriptionModal } from './InscriptionModal'
 
 
 export default function Header() {
@@ -73,7 +73,7 @@ export default function Header() {
                 onClick={switchConnexion}>
                   X
                 </span>
-                <Connexion/>
+                <ConnexionModal/>
               </ReactModal>
             ) : ""}
 
@@ -86,7 +86,7 @@ export default function Header() {
                 onClick={switchInscription}>
                   X
                 </span>
-                <Inscription/>
+                <InscriptionModal/>
               </ReactModal>
             ) : ""} 
           </>      
