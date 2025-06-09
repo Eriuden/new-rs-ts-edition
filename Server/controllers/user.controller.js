@@ -31,7 +31,7 @@ module.exports.updateUser = async (req,res) => {
             {_id: req.params.id},
             {
                 $set: {
-                    pseudo: req.body.pseudo,
+                    name: req.body.name,
                     picture: req.body.picture,
                     bio: req.body.bio,
                     gender: req.body.gender

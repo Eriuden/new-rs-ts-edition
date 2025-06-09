@@ -36,28 +36,28 @@ export const uploadPicture = (data: any, id: string, dispatch: any) => {
             .catch((err) => console.log(err))
 }
 
-export const updateUser = (userId: string, pseudo: string, bio: string, 
+export const updateUser = (userId: string, name: string, bio: string, 
     gender: string, address: string, dispatch: any) => {
     
         return axios({
             method:"put",
             url: `${process.env.REACT_APP_API_URL}api/user` + userId,
-            data: {pseudo, bio, gender, address}
+            data: {name, bio, gender, address}
         })
             .then(() => {
-                dispatch({type: UPDATE_USER, payload: pseudo, bio, gender})
+                dispatch({type: UPDATE_USER, payload: name, bio, gender})
             })
             .catch((err) => window.alert(err))
     
 }
 
 
-export const deleteUser = (userId: string, pseudo: string, email: string,
+export const deleteUser = (userId: string, name: string, email: string,
      password: string, dispatch: any) => {   
         return axios({
             method:"delete",
             url: `${process.env.REACT_APP_API_URL}api/user/${userId}`,
-            data: {pseudo, email, password},
+            data: {name, email, password},
         })
         .then(() => {
             dispatch({ type: DELETE_USER, payload: { userId }})

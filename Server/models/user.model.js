@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
             default:"compte d'essai",
             required:true
         },
-        pseudo: {
+        name: {
             type:String,
             required:true,
             minlength: 8,

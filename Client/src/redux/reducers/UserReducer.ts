@@ -15,7 +15,7 @@ export const userReducer = (state = initialState,action: any) => {
         case UPDATE_USER:
             return {
                 ...state,
-                pseudo : action.payload,
+                name : action.payload,
                 bio : action.payload,
                 gender : action.payload,
                 address : action.payload

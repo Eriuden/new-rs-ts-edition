@@ -22,10 +22,10 @@ const transport = nodemailer.createTransport({
 
 module.exports.signUp = async (req,res) => {
     console.log(req.body)
-    const {pseudo, email, password} = req.body
+    const {name, email, password} = req.body
 
     try{
-        const user = await userModel.create({pseudo, email, password})
+        const user = await userModel.create({name, email, password})
         res.status(201).json({ user: user._id})
     }
     catch(err){
