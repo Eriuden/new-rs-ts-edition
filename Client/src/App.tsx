@@ -5,6 +5,11 @@ import Header from './Components/Header'
 import { useDispatch } from "react-redux" 
 import { getUser } from './redux/actions/User.action'
 import './App.css'
+import { UserProfile } from './pages/UserProfile'
+import { Searcher } from './Components/Searcher'
+import { MessageIndex } from './pages/MessageIndex'
+import { ResetPassword } from './pages/ResetPassword'
+import { Home } from './pages/Home'
 
 function App() {
 
