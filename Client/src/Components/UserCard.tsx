@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
 import { isEmpty } from '../utils'
-import { FollowHandler } from './FollowHandler'
+import FollowHandler from './FollowHandler'
 
 
 export default function UserCard({userProps}:any) {
