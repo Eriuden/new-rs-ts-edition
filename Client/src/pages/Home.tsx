@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getUsers } from "../redux/actions/Users.action" 
+import UserCard from "../Components/UserCard"
+import { isEmpty } from "../utils"
 
 export const Home = () => {
     const [loadCard, setLoadCard] = useState(false)
