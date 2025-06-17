@@ -9,6 +9,9 @@ export const  UNFOLLOW_USER = "UNFOLLOW_USER"
 
 export const GET_USER_ERRORS = "GET_USER_ERRORS"
 
+type userProps = {userId: string, name: string, bio: string, 
+    gender: string, address: string}
+
 export const getUser = (uid: string, dispatch: any) => {   
         return axios
             .get(`${process.env.REACT_APP_API_URL}api/user/${uid}`)
@@ -36,8 +39,8 @@ export const uploadPicture = (data: any, id: string, dispatch: any) => {
             .catch((err) => console.log(err))
 }
 
-export const updateUser = (userId: string, name: string, bio: string, 
-    gender: string, address: string, dispatch: any) => {
+export const updateUser = ({userId, name, bio, 
+    gender, address}:userProps, dispatch: any) => {
     
         return axios({
             method:"put",
