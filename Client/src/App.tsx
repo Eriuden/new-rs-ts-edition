@@ -9,6 +9,7 @@ import { UserProfile } from './pages/UserProfile'
 import { Searcher } from './Components/Searcher'
 import { MessageIndex } from './pages/MessageIndex'
 import { ResetPassword } from './pages/ResetPassword'
+import UpdatePassword from './pages/UpdatePassword'
 import { Home } from './pages/Home'
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/user-profile/:id" element={<UserProfile/>}/>
         <Route path="/reset-password" element={<ResetPassword/>}/>
+        <Route path={"/update-password"} element={<UpdatePassword/>}/>
         <Route path="/messages/:id" element={<MessageIndex/>}/>
       </Routes>
       
