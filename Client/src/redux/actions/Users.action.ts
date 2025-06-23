@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const GET_USERS = "GET_USERS"
 
-export const getUsers = (dispatch: any,number:number) => {   
+export const getUsers = (number:number, dispatch: any) => {   
         return axios
         .get(`${process.env.REACT_APP_API_URL}api/user`)
         .then((res) => {

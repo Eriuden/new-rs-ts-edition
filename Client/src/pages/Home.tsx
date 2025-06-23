@@ -21,7 +21,7 @@ export const Home = () => {
   
     useEffect(()=> {
       if (loadCard) {
-        getUsers(dispatch,count)
+        getUsers(count, dispatch)
         setLoadCard(false)
         setCount(count + 10)
       }
