@@ -7,7 +7,7 @@ import { getUser } from './redux/actions/User.action'
 import './App.css'
 import { UserProfile } from './pages/UserProfile'
 import { Searcher } from './Components/Searcher'
-import { MessageIndex } from './pages/MessageIndex'
+import MessageIndex from './pages/MessageIndex'
 import { ResetPassword } from './pages/ResetPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import { Home } from './pages/Home'
@@ -34,7 +34,6 @@ function App() {
     .catch(() => console.log("Pas de tokens"))
     }
     fetchToken()
-
     if (uid) getUser(uid, dispatch)
   }, [uid])
 
