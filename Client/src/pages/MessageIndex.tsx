@@ -22,7 +22,7 @@ export default function MessageIndex() {
 
 
 
-export const Channels = (loadedChannels) => {
+export const Channels = (loadedChannels:any) => {
   const navigate = useNavigate()
   const { setActiveChannel, channel :activeChannel } = useChatContext()
 
