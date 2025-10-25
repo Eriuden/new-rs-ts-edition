@@ -2,12 +2,8 @@ import { Server } from 'socket.io';
 import { Server as HTTPServer } from 'http';
 import jwt from 'jsonwebtoken';
 
-interface UserSocket {
-  userId: string;
-  socketId: string;
-}
 
-const userSockets = new Map<string, string>();
+const userSockets = new Map();
 
 export const initializeSocket = (httpServer: HTTPServer) => {
   const io = new Server(httpServer, {
