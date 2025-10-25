@@ -1,6 +1,6 @@
 
-import Conversation from '../models/Conversation';
-import { Message } from '../models/Message';
+import { Conversation } from '../models/message.model';
+import { Message } from '../models/message.model';
 import { authenticateToken } from '../middleware/auth'; // ton middleware d'auth
 
 const router = require("express").Router()
