@@ -31,6 +31,7 @@ app.get("/jwtid", requireAuth , (req, res) => {
 })
 
 app.use("/api/user", userRoutes)
+app.use('/api/messages', messageRoutes)
 
 app.listen(process.env.PORT, () => {
     console.log(`listening on port ${process.env.PORT}`)
