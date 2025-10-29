@@ -52,14 +52,13 @@ router.post('/conversations', authenticateToken, async (req, res) => {
   }
 });
 
-// Récupérer les messages d'une conversation
+
 router.get('/conversations/:conversationId/messages', authenticateToken, async (req, res) => {
   try {
     const userId = req.user?.id;
     const { conversationId } = req.params;
     const { limit = 50, before } = req.query;
 
-    // Vérifier que l'utilisateur fait partie de la conversation
     const conversation = await Conversation.findOne({
       _id: conversationId,
       participants: userId
@@ -85,7 +84,7 @@ router.get('/conversations/:conversationId/messages', authenticateToken, async (
   }
 });
 
-// Envoyer un message
+
 router.post('/conversations/:conversationId/messages', authenticateToken, async (req, res) => {
   try {
     const userId = req.user?.id;
@@ -96,7 +95,6 @@ router.post('/conversations/:conversationId/messages', authenticateToken, async 
       return res.status(400).json({ error: 'Le message ne peut pas être vide' });
     }
 
-    // Vérifier que l'utilisateur fait partie de la conversation
     const conversation = await Conversation.findOne({
       _id: conversationId,
       participants: userId
@@ -112,7 +110,6 @@ router.post('/conversations/:conversationId/messages', authenticateToken, async 
       content: content.trim()
     });
 
-    // Mettre à jour la conversation
     await Conversation.findByIdAndUpdate(conversationId, {
       lastMessage: message._id,
       lastMessageAt: message.createdAt
@@ -120,7 +117,6 @@ router.post('/conversations/:conversationId/messages', authenticateToken, async 
 
     const populatedMessage = await message.populate('sender', 'username avatar');
 
-    // Émettre le message via Socket.io (voir le fichier socket.ts)
     const io = req.app.get('io');
     const recipientId = conversation.participants.find(p => p.toString() !== userId);
     io.to(recipientId.toString()).emit('new_message', populatedMessage);
@@ -131,13 +127,11 @@ router.post('/conversations/:conversationId/messages', authenticateToken, async 
   }
 });
 
-// Marquer les messages comme lus
 router.put('/conversations/:conversationId/read', authenticateToken, async (req, res) => {
   try {
     const userId = req.user?.id;
     const { conversationId } = req.params;
 
-    // Vérifier que l'utilisateur fait partie de la conversation
     const conversation = await Conversation.findOne({
       _id: conversationId,
       participants: userId
@@ -165,12 +159,10 @@ router.put('/conversations/:conversationId/read', authenticateToken, async (req,
   }
 });
 
-// Compter les messages non lus
 router.get('/unread-count', authenticateToken, async (req, res) => {
   try {
     const userId = req.user?.id;
 
-    // Trouver toutes les conversations de l'utilisateur
     const conversations = await Conversation.find({
       participants: userId
     }).select('_id');

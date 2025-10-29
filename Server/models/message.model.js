@@ -1,4 +1,4 @@
-// models/Conversation.ts
+
 import mongoose, { Schema } from 'mongoose';
 
 const conversationSchema = new Schema(
@@ -22,7 +22,7 @@ const conversationSchema = new Schema(
   }
 );
 
-// Index pour optimiser les recherches de conversations
+
 conversationSchema.index({ participants: 1 });
 conversationSchema.index({ lastMessageAt: -1 });
 
@@ -60,7 +60,6 @@ const messageSchema = new Schema(
   }
 );
 
-// Index pour optimiser les recherches de messages
 messageSchema.index({ conversation: 1, createdAt: -1 });
 messageSchema.index({ sender: 1 });
 

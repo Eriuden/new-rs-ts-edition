@@ -37,7 +37,7 @@ export const MessagingInterface: React.FC = ({user_id,
 
   const currentUserId = {user_id};
 
-  // Initialiser Socket.io
+  
   useEffect(() => {
     const token = localStorage.getItem('token'); // Adapter selon ton système d'auth
     const newSocket = io(process.env.REACT_APP_API_URL || 'http://localhost:5000', {
@@ -65,7 +65,7 @@ export const MessagingInterface: React.FC = ({user_id,
         setMessages(prev => [...prev, message]);
         markAsRead(selectedConversation.conv_id);
       }
-      fetchConversations(); // Mettre à jour la liste
+      fetchConversations(); 
     });
 
     socket.on('user_typing', ({ conversationId, user_id }) => {
@@ -175,7 +175,6 @@ export const MessagingInterface: React.FC = ({user_id,
 
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: 'Arial, sans-serif' }}>
-      {/* Liste des conversations */}
       <div style={{
         width: '320px',
         borderRight: '1px solid #ddd',
@@ -232,11 +231,9 @@ export const MessagingInterface: React.FC = ({user_id,
         })}
       </div>
 
-      {/* Zone de messages */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         {selectedConversation ? (
           <>
-            {/* Header */}
             <div style={{
               padding: '20px',
               borderBottom: '1px solid #ddd',
@@ -245,7 +242,6 @@ export const MessagingInterface: React.FC = ({user_id,
               <h3 style={{ margin: 0 }}>{getOtherParticipant(selectedConversation).username}</h3>
             </div>
 
-            {/* Messages */}
             <div style={{
               flex: 1,
               overflowY: 'auto',
