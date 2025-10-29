@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import axios from 'axios';
 
@@ -187,7 +187,7 @@ export const MessagingInterface: React.FC = ({user_id,
           const other = getOtherParticipant(conv);
           return (
             <div
-              key={conv._id}
+              key={conv.conv_id}
               onClick={() => handleSelectConversation(conv)}
               style={{
                 padding: '15px',
@@ -249,7 +249,7 @@ export const MessagingInterface: React.FC = ({user_id,
             }}>
               {messages.map(msg => (
                 <div
-                  key={msg._id}
+                  key={msg.message_id}
                   style={{
                     display: 'flex',
                     justifyContent: msg.sender.user_id === currentUserId ? 'flex-end' : 'flex-start',
