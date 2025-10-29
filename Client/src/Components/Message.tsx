@@ -60,20 +60,20 @@ export const MessagingInterface: React.FC = ({user_id,
     if (!socket) return;
 
     socket.on('new_message', (message: Message) => {
-      if (selectedConversation && message.conversation === selectedConversation._id) {
+      if (selectedConversation && message.message_id === selectedConversation.conv_id) {
         setMessages(prev => [...prev, message]);
         markAsRead(selectedConversation.conv_id);
       }
       fetchConversations(); 
     });
 
-    socket.on('user_typing', ({ conversationId, user_id }) => {
+    socket.on('user_typing', ( conversationId:string, user_id:string ) => {
       if (selectedConversation?.conv_id === conversationId && user_id !== currentUserId) {
         setIsTyping(true);
       }
     });
 
-    socket.on('user_stop_typing', ({ conversationId }) => {
+    socket.on('user_stop_typing', ( conversationId:string ) => {
       if (selectedConversation?.conv_id === conversationId) {
         setIsTyping(false);
       }
