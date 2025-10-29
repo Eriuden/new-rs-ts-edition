@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { io, Socket } from "socket.io-client"
 import axios from 'axios';
 
 interface User {
@@ -68,7 +68,7 @@ export const MessagingInterface: React.FC = ({user_id,
     });
 
     socket.on('user_typing', ( conversationId:string, user_id:string ) => {
-      if (selectedConversation?.conv_id === conversationId && user_id !== currentUserId) {
+      if (selectedConversation?.conv_id === conversationId && user_id !== currentUserId.user_id) {
         setIsTyping(true);
       }
     });
@@ -143,7 +143,7 @@ export const MessagingInterface: React.FC = ({user_id,
   const handleTyping = () => {
     if (!socket || !selectedConversation) return;
 
-    const recipient = selectedConversation.participants.find(p => p.user_id !== currentUserId);
+    const recipient = selectedConversation.participants.find(p => p.user_id !== currentUserId.user_id);
     socket.emit('typing', {
       conversationId: selectedConversation.conv_id,
       recipientId: recipient?.user_id
@@ -161,7 +161,7 @@ export const MessagingInterface: React.FC = ({user_id,
   const handleStopTyping = () => {
     if (!socket || !selectedConversation) return;
 
-    const recipient = selectedConversation.participants.find(p => p.user_id !== currentUserId);
+    const recipient = selectedConversation.participants.find(p => p.user_id !== currentUserId.user_id);
     socket.emit('stop_typing', {
       conversationId: selectedConversation.conv_id,
       recipientId: recipient?user_id
@@ -169,7 +169,7 @@ export const MessagingInterface: React.FC = ({user_id,
   };
 
   const getOtherParticipant = (conversation: Conversation): User => {
-    return conversation.participants.find(p => p.user_id !== currentUserId)!;
+    return conversation.participants.find(p => p.user_id !== currentUserId.user_id)!;
   };
 
   return (
@@ -252,7 +252,7 @@ export const MessagingInterface: React.FC = ({user_id,
                   key={msg.message_id}
                   style={{
                     display: 'flex',
-                    justifyContent: msg.sender.user_id === currentUserId ? 'flex-end' : 'flex-start',
+                    justifyContent: msg.sender.user_id === currentUserId.user_id ? 'flex-end' : 'flex-start',
                     marginBottom: '15px'
                   }}
                 >
@@ -260,8 +260,8 @@ export const MessagingInterface: React.FC = ({user_id,
                     maxWidth: '60%',
                     padding: '10px 15px',
                     borderRadius: '18px',
-                    backgroundColor: msg.sender.user_id === currentUserId ? '#007bff' : 'white',
-                    color: msg.sender._id === currentUserId ? 'white' : 'black',
+                    backgroundColor: msg.sender.user_id === currentUserId.user_id ? '#007bff' : 'white',
+                    color: msg.sender === currentUserId ? 'white' : 'black',
                     boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
                   }}>
                     <div>{msg.content}</div>
