@@ -24,8 +24,7 @@ interface Conversation {
 }
 
 export const MessagingInterface: React.FC = ({user_id,
-    username,
-    avatar}: User) => {
+  }: User) => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -60,7 +59,7 @@ export const MessagingInterface: React.FC = ({user_id,
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('new_message', ({message}: Message) => {
+    socket.on('new_message', (message: Message) => {
       if (selectedConversation && message.conversation === selectedConversation._id) {
         setMessages(prev => [...prev, message]);
         markAsRead(selectedConversation.conv_id);
