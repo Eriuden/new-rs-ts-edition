@@ -1,39 +1,65 @@
-const jwt = require("jsonwebtoken")
-const userModel = require("../models/user.model")
+import { Request, Response, NextFunction } from "express";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { User } from "../models/userModel"
 
-module.exports.checkUser = (req, res, next) => {
-    const token = req.cookies.jwt
-    if (token) {
-        jwt.verify(token, process.env.TOKEN_SECRET, async (err,decodedToken) => {
-            if (err) {
-                res.locals.user = null
-                res.cookie("jwt", "", {maxAge:1})
-                next()
-            } else {
-                let user = await userModel.findByIdAndUpdate(decodedToken)
-                res.locals.user = user
-                next()
-            }
-        })
-    } else {
-        res.locals.user = null
-        next()
-    }
+interface CustomJwtPayload extends JwtPayload {
+  id: string;
 }
 
-module.exports.requireAuth = (req, res, next) => {
-    const token = req.cookies.jwt
-    if (token) {
-       jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
-          if (err) {
-             console.log(err)
-          } else {
-             console.log(decodedToken.id)
-             next() 
-          }
+export const checkUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const token = req.cookies?.jwt;
 
-       })
-     } else {
-       console.log("pas de token")
-     }
-}
+  if (!token) {
+    res.locals.user = null;
+    return next();
+  }
+
+  try {
+    const decoded = jwt.verify(
+      token,
+      process.env.TOKEN_SECRET as string
+    ) as CustomJwtPayload;
+
+    const user = await User.findById(decoded.id).select("-password");
+
+    res.locals.user = user;
+    return next();
+
+  } catch (error) {
+    res.locals.user = null;
+    res.cookie("jwt", "", { maxAge: 1 });
+    return next();
+  }
+};
+
+export const requireAuth = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const token = req.cookies?.jwt;
+
+  if (!token) {
+    res.status(401).json({ message: "Non autorisé (pas de token)" });
+    return;
+  }
+
+  try {
+    const decoded = jwt.verify(
+      token,
+      process.env.TOKEN_SECRET as string
+    ) as CustomJwtPayload;
+
+    //A améliorer
+    (req as any).userId = decoded.id;
+
+    next();
+
+  } catch (error) {
+    res.status(401).json({ message: "Token invalide" });
+  }
+};
